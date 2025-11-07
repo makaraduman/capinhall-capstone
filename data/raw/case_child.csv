@@ -1,0 +1,7 @@
+case_child_id,case_id,child_id,relationship_role
+1,101,1,FocusChild
+2,102,2,FocusChild
+3,103,3,FocusChild
+4,104,4,FocusChild
+5,105,5,FocusChild
+6,101,4,Sibling

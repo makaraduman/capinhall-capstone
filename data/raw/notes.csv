@@ -1,0 +1,6 @@
+note_id,case_id,child_id,episode_id,placement_id,note_date,author_role,note_type,note_text
+7001,101,1,1001,5001,2020-02-01 10:30:00,Caseworker,Contact,"Visited foster home; child appears bonded with caregiver and attending school regularly."
+7002,101,4,1002,5003,2020-03-15 14:10:00,Supervisor,CourtReport,"Recommendation to explore kinship placement due to strong ties with maternal aunt."
+7003,102,2,1003,,2021-05-20 09:00:00,Caseworker,Incident,"Positive toxicology at birth; safety plan initiated with hospital."
+7004,103,3,1004,5006,2019-10-05 11:45:00,Provider,ProviderUpdate,"Therapist reports improved coping skills; no new incidents."
+7005,105,5,1005,5007,2019-01-10 16:00:00,Caseworker,Contact,"Parent engaged in substance use treatment; making progress per provider."

@@ -1,0 +1,9 @@
+placement_id,episode_id,start_date,end_date,placement_type,placement_authority,provider_id,county_code
+5001,1001,2020-01-15,2020-06-01,NonRelativeFoster,CourtOrder,PR001,031
+5002,1001,2020-06-01,2021-08-01,Kinship,CourtOrder,PR010,031
+5003,1002,2020-01-15,2021-01-01,NonRelativeFoster,EmergencyRemoval,PR002,031
+5004,1002,2021-01-01,2022-06-01,Kinship,CourtOrder,PR011,031
+5005,1003,2021-03-10,,Residential,CourtOrder,PR050,031
+5006,1004,2019-09-01,2020-11-15,NonRelativeFoster,CourtOrder,PR003,043
+5007,1005,2018-05-01,2020-01-01,NonRelativeFoster,CourtOrder,PR004,097
+5008,1005,2020-01-01,2021-05-01,TrialHomeVisit,CourtOrder,PR004,097

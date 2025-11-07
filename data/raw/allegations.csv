@@ -1,0 +1,6 @@
+allegation_id,case_id,child_id,report_date,allegation_type,perpetrator_role,disposition
+9001,101,1,2019-12-20,Neglect,Parent,Substantiated
+9002,102,2,2021-02-25,SubstanceExposure,Parent,Substantiated
+9003,103,3,2019-08-15,PhysicalAbuse,Parent,Indicated
+9004,104,4,2022-02-10,Neglect,Parent,Substantiated
+9005,105,5,2018-04-20,Neglect,Parent,Substantiated

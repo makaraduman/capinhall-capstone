@@ -1,0 +1,6 @@
+episode_id,child_id,case_id,removal_date,exit_date,exit_reason,exit_to,current_goal,is_censored
+1001,1,101,2020-01-15,2021-08-01,Reunification,Parent,Reunification,FALSE
+1002,4,101,2020-01-15,2022-06-01,Guardianship,Relative,Adoption,FALSE
+1003,2,102,2021-03-10,,InCare,InCare,Reunification,TRUE
+1004,3,103,2019-09-01,2020-11-15,Adoption,NonRelative,Adoption,FALSE
+1005,5,105,2018-05-01,2021-05-01,Reunification,Parent,Reunification,FALSE

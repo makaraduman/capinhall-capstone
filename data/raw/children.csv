@@ -1,0 +1,6 @@
+child_id,legacy_child_id,first_name,last_name,dob,sex,race,ethnicity,county_code
+1,C001,Jamal,Brown,2012-05-14,Male,Black or African American,Not Hispanic,031
+2,C002,Sofia,Lopez,2015-09-02,Female,White,Hispanic,031
+3,C003,Aiden,Kim,2010-01-20,Male,Asian,Not Hispanic,043
+4,C004,Mia,Johnson,2016-07-11,Female,Black or African American,Not Hispanic,031
+5,C005,Liam,Davis,2008-03-30,Male,White,Not Hispanic,097

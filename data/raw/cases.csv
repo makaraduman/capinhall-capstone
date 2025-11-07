@@ -1,0 +1,6 @@
+case_id,legacy_case_id,case_type,start_date,close_date,primary_reason,county_code,court_id,is_court_involved
+101,FC101,AbuseNeglect,2020-01-15,2022-06-01,Neglect,031,CH01,TRUE
+102,FC102,AbuseNeglect,2021-03-10,,Substance Use,031,CH01,TRUE
+103,FC103,Dependency,2019-09-01,2020-12-31,Physical Abuse,043,CH05,TRUE
+104,FC104,AbuseNeglect,2022-02-20,,Neglect,031,CH01,TRUE
+105,FC105,AbuseNeglect,2018-05-01,2021-05-01,Substance Use,097,CH10,TRUE
