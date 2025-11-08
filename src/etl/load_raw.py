@@ -5,7 +5,6 @@ Usage: python src/etl/load_raw.py
 
 import os
 import pandas as pd
-import numpy as np
 import psycopg2
 import logging
 from datetime import datetime
@@ -39,8 +38,6 @@ CSV_FILES = {
     'notes': 'notes.csv'
 }
 
-# --- Database Connection and Truncation Functions (Unchanged) ---
-
 def get_db_connection():
     """Create and return a database connection"""
     try:
@@ -68,66 +65,56 @@ def truncate_tables(conn):
         logger.error(f"Error truncating tables: {e}")
         raise
 
-# -----------------------------------------------------------------
-
 def load_csv_to_postgres(conn, table_name, csv_path):
     """
     Load a CSV file into a PostgreSQL table using the efficient COPY FROM STDIN method.
     """
     try:
-        # Read CSV
+        # Read CSV - treat 'NULL' string as actual NULL
         logger.info(f"Reading {csv_path}...")
-        df = pd.read_csv(csv_path)
+        df = pd.read_csv(csv_path, na_values=['NULL'], keep_default_na=False)
         
-        # Define date columns for universal cleaning
-        date_columns = ['date_of_birth', 'referral_date', 'closure_date', 
-                       'entry_date', 'exit_date', 'placement_start', 
-                       'placement_end', 'allegation_date', 'note_date']
+        # Convert float columns to integers if they should be integers
+        for col in df.columns:
+            if df[col].dtype in ['float64', 'float32']:
+                # Check if all non-null values are whole numbers
+                non_null = df[col].dropna()
+                if len(non_null) > 0 and all(non_null == non_null.astype(int)):
+                    df[col] = df[col].astype('Int64')  # Nullable integer
         
-        # --- Data Cleaning (Simplified) ---
+        # Get columns - exclude only the primary key auto-increment ID
+        # Keep all other columns including foreign keys (child_id, case_id, episode_id, etc.)
+        primary_keys = {
+            'children': 'child_id',
+            'cases': 'case_id',
+            'episodes': 'episode_id',
+            'placements': 'placement_id'
+        }
         
-        for col in date_columns:
-            if col in df.columns:
-                # Convert to datetime, coercing errors to NaT
-        # Replace empty strings with None before converting
-                df[col] = df[col].replace('', None)
-                df[col] = pd.to_datetime(df[col], errors='coerce')
-        
-        # Replace all NaN/NaT values with None or an empty string, 
-        # which will be correctly interpreted as NULL by the COPY command
-        df = df.replace({np.nan: None, pd.NaT: None})
-        df = df.fillna('') # Fills remaining NaNs (e.g. in string columns) with empty string
-
-        # Get column names (exclude auto-increment IDs)
-        # We must align the DataFrame columns with the target table columns
-        columns = [col for col in df.columns if not col.endswith('_id') or 
-                  table_name in ['case_child']]
+        pk = primary_keys.get(table_name)
+        if pk:
+            columns = [col for col in df.columns if col != pk]
+        else:
+            # For junction tables or tables without auto-increment PKs, use all columns
+            columns = list(df.columns)
         
         if not columns:
             logger.warning(f"No valid columns found for {table_name}")
             return 0
 
-        # --- Use io.StringIO and COPY FROM STDIN ---
-
-        # 1. Prepare data in a CSV format in memory
+        # Prepare data in CSV format in memory
         output = StringIO()
-        
-        # Select and format the relevant columns for the DB. 
-        # index=False prevents writing the DataFrame index as a column.
-        # header=False prevents writing column names as the first row.
-        # na_rep='NULL' tells Pandas to use the string 'NULL' for missing values (None/NaN)
-        # which is what COPY FROM expects to treat as a database NULL.
-        df[columns].to_csv(output, sep='\t', index=False, header=False, na_rep='NULL')
+        # Use CSV format with NULL as the null marker
+        df[columns].to_csv(output, sep=',', index=False, header=False, na_rep='NULL')
         output.seek(0)
         
-        # 2. Build the COPY command
+        # Build and execute COPY command
         cols_str = ', '.join(columns)
-        copy_sql = f"COPY {table_name} ({cols_str}) FROM STDIN WITH (FORMAT csv, DELIMITER E'\\t', NULL 'NULL')"
+        copy_sql = f"COPY {table_name} ({cols_str}) FROM STDIN WITH (FORMAT CSV, NULL 'NULL')"
 
-        # 3. Execute the COPY command
         with conn.cursor() as cur:
             cur.copy_expert(copy_sql, output)
-            rows = cur.rowcount # Get the number of rows inserted
+            rows = cur.rowcount
         
         conn.commit()
         logger.info(f"✓ Loaded {rows} rows into {table_name}")
@@ -139,10 +126,7 @@ def load_csv_to_postgres(conn, table_name, csv_path):
     except Exception as e:
         conn.rollback()
         logger.error(f"Error loading {table_name}: {e}")
-        # Reraise the exception to stop the overall ETL process
         raise
-
-# --- Verification and Main Functions (Unchanged) ---
 
 def verify_data_load(conn):
     """Verify that data was loaded correctly"""
@@ -194,8 +178,6 @@ def main():
         
     except Exception as e:
         logger.error(f"ETL failed: {e}")
-        # The exception is already raised in load_csv_to_postgres, 
-        # so this will catch the ultimate failure.
         
     finally:
         conn.close()
