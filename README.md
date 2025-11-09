@@ -1,7 +1,6 @@
 # Child Welfare Capstone Project
 ## Child Welfare Data Analysis & Predictive Modeling
 ---
-> [!TYPE]
 > **Author**: Ali Karaduman (Mike) 
 > **Organization**: Chapin Hall at the University of Chicago  
 > **Project Duration**: 11/1/2025 - 11/11/2025
