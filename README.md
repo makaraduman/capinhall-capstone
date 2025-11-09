@@ -5,8 +5,6 @@
 **Organization**: Chapin Hall at the University of Chicago  
 **Project Duration**: 11/1/2025 - 11/11/2025
 ---
-(https://img.shields.io/badge/Status-Completed-success.svg)](https://shields.io) (https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md) (https://img.shields.io/badge/Database-PostgreSQL%2016-blue.svg)](https://www.postgresql.org/)
----
 
 ## Project Overview
 
