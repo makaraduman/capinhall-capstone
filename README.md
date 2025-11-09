@@ -1,15 +1,17 @@
-# Chapin Hall Capstone Project
+# Child Welfare Capstone Project
 ## Child Welfare Data Analysis & Predictive Modeling
 
 **Author**: Ali Karaduman (Mike) 
 **Organization**: Chapin Hall at the University of Chicago  
-**Project Duration**: [Start Date] - [End Date]
-
+**Project Duration**: 11/1/2025 - 11/11/2025
+---
+(https://img.shields.io/badge/Status-Completed-success.svg)](https://shields.io) (https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.md) (https://img.shields.io/badge/Database-PostgreSQL%2016-blue.svg)](https://www.postgresql.org/)
 ---
 
-## 📋 Project Overview
+## Project Overview
 
-This capstone project analyzes child welfare data to identify patterns in out-of-home care, with a focus on:
+This capstone project analyzes synthetic child welfare data to identify patterns in out-of-home care, with a focus on delivering actionable insights through data science. The project addresses key challenges in child protective services by focusing on:
+
 - **Length of stay** in foster care
 - **Demographic disparities** across race and geography
 - **Placement stability** and movement patterns
@@ -24,13 +26,33 @@ This capstone project analyzes child welfare data to identify patterns in out-of
 
 ---
 
+## System Architecture and Design Rationale
+
+**Data Flow and Component Boundaries**
+1. **Data Ingestion (ETL Layer):** Raw synthetic data is processed by the Python-based ETL pipeline (`src/etl/load_raw.py`) and loaded into the PostgreSQL database.
+
+2. **Persistence Layer:** PostgreSQL serves as the single source of truth, managing relational data integrity via schemas defined in `sql/`.
+
+3. **Analysis Layer:** Python scripts and Jupyter notebooks (`src/analysis/`) consume data directly from the processed views in the database to execute complex statistical and machine learning models.
+
+4. **Presentation Layer:** The Power BI Dashboard connects to aggregated database views (`analysis_master`) to ensure visualizations reflect the most current state of the processed data.
+
+### Key Design Decisions
+A crucial aspect of this design was the selection of **PostgreSQL** as the database backend. This choice was made to support:
+
+- **Transactional Integrity:** Essential for managing complex, time-series data related to child episodes and placements.
+
+- **Advanced SQL Features:** Leveraging capabilities for defining complex, reusable analysis views (`analysis_master`) directly in the persistence layer, which streamlines downstream analysis in Python and Power BI.   
+
+---
+
 ## 🗂️ Project Structure
 
 ```
-chapinhall-capstone/
+child-welfare-capstone/
 ├── README.md                    # This file
 ├── requirements.txt             # Python dependencies
-├── .gitignore
+├──.gitignore
 ├── generate_sample_data.py      # Synthetic data generator
 │
 ├── data/
@@ -67,8 +89,8 @@ chapinhall-capstone/
 └── docs/
     ├── erd.md                   # Entity relationship diagram
     ├── methods_brief.md         # Technical methods
-    └── dashboard_guide.md       # Dashboard documentation
-```
+    ├── dashboard_guide.md       # Dashboard documentation
+    └── design_decisions.md      # Rationale for architectural choices ```
 
 ---
 
@@ -170,7 +192,7 @@ See `docs/erd.md` for detailed schema documentation.
 
 ---
 
-## 🔬 Analysis Methods
+## Advanced Analysis and Modeling Methods
 
 ### 1. Exploratory Data Analysis (EDA)
 - Descriptive statistics
@@ -181,36 +203,36 @@ See `docs/erd.md` for detailed schema documentation.
 **Notebook**: `src/analysis/eda_child_episodes.ipynb`
 
 ### 2. Multilevel Modeling
-- Hierarchical structure (children nested in counties)
-- Random effects for county-level variation
-- Fixed effects for individual predictors
-- Intraclass correlation analysis
+- Hierarchical structure (children nested in counties) to account for non-independence of observations.
+- Random effects for county-level variation and fixed effects for individual predictors.
+- Intraclass correlation analysis.
 
 **Notebook**: `src/analysis/multilevel_longstay.ipynb`
 
 ### 3. Survival Analysis
-- Cox proportional hazards models
-- Time-to-exit predictions
-- Kaplan-Meier curves by demographics
+- Cox proportional hazards models for time-to-exit predictions.
+- Kaplan-Meier curves stratified by key demographics to assess outcome disparities.
+
+**Notebook**: `src/analysis/surival_analysis.ipynb`
 
 ### 4. Natural Language Processing
-- Case note preprocessing
-- Topic modeling with LDA
-- Keyword extraction
-- Sentiment analysis (if applicable)
+- Preprocessing of high-volume, unstructured case notes.
+- Topic modeling (LDA) to identify underlying themes in case documentation.
+- Keyword extraction and sentiment analysis (if applicable) for early risk detection.
 
-**Notebook**: `src/nlp/topics_keywords_demo.ipynb`
+**Notebook**: 'src/nlp/topics_keywords_demo.ipynb'
 
 ### 5. Policy Simulations
-- "What-if" scenarios for interventions
-- Cost-benefit analysis framework
-- Monte Carlo simulations
+- "What-if" scenarios utilizing model outputs to simulate the impact of potential interventions (e.g., reducing placement moves).
+- Cost-benefit analysis framework using Monte Carlo simulations.
+
+**Notebook**: 'src/nlp/causal_policy_sim.ipynb'
 
 ---
 
-## 📊 Power BI Dashboard
+## Power BI Dashboard (under construction)
 
-The interactive dashboard includes:
+The interactive dashboard will include:
 
 ### Page 1: Executive Summary
 - Total caseload overview
@@ -238,7 +260,7 @@ See `docs/dashboard_guide.md` for detailed instructions.
 
 ---
 
-## 🧪 Testing & Data Quality
+##  Testing & Data Quality
 
 Run data quality tests:
 ```bash
@@ -254,32 +276,31 @@ Tests include:
 
 ---
 
-## 📝 Deliverables
+## Project Status & Deliverables
 
-- ✅ Database schema
-- ✅ ETL pipeline
-- ✅ Sample data generation
-- ✅ EDA notebook
-- □ Multilevel models
-- □ Methods documentation
-- □ Power BI dashboard
-- □ Dashboard guide
-- □ Final presentation
-- □ Final report
-- □ Code documentation
-- □ Presentation deck
-
+| Deliverable           | Description                                                                               | Status          |
+|-----------------------|-------------------------------------------------------------------------------------------|-----------------|
+| Data & ETL            | "Database schema, ETL pipeline, and sample data generation"                               | ✅ Completed    |
+| Exploratory Analysis  | EDA notebook and initial data visualizations                                              | ✅ Completed    |
+| Modeling I            | Multilevel models and Survival Analysis implementation                                    | ✅ Completed    |
+| Modeling II           | NLP Topic Modeling implementation                                                         | ✅ Completed    |
+| Documentation         | Technical methods brief (methods_brief.md) and Design Decisions Log (design_decisions.md) | □ In Progress   |
+| Visualization         | Power BI dashboard and accompanying guide (dashboard_guide.md)                            | □ In Progress   |
+| Final Artifacts       | Final presentation deck and comprehensive technical report                                | □ To Be Started |
+| Code Quality          | Comprehensive unit/integration tests and code documentation                               | □ In Progress   |
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Database**: PostgreSQL 16
-- **ETL**: Python (pandas, psycopg2, SQLAlchemy)
-- **Analysis**: Python (numpy, pandas, scipy, statsmodels)
-- **Visualization**: matplotlib, seaborn, Power BI
-- **NLP**: scikit-learn, spacy (optional)
-- **Testing**: pytest
-- **Version Control**: Git/GitHub
+| Category                  | Technologies Used                                         |
+|---------------------------|-----------------------------------------------------------|
+| **Database**:             | PostgreSQL 16                                             |
+| **ETL & Data Wrangling**  | Python (pandas, psycopg2, SQLAlchemy)                     |
+| **Modeling & Analysis**   | Python (numpy, pandas, scipy, statsmodels, scikit-learn)  |
+| **Visualization**         | matplotlib, seaborn, Power BI (optional)                  |
+| **NLP**:                  | scikit-learn, spacy (optional)                            |
+| **Testing**               | pytest                                                    |
+| **Version Control**       | Git/GitHub                                                |
 
 ---
 
@@ -292,9 +313,10 @@ Tests include:
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contributing & Collaboration
 
-This is an academic capstone project. For questions or collaboration:
+This project is submitted as an academic capstone. While contributions are not actively solicited post-submission, the repository is structured for transparency, maintainability, and future extension.   
+For academic inquiries, questions, or collaboration on potential extensions:
 - Email: makaraduman@gmail.com
 - LinkedIn: /makaraduman
 
@@ -302,13 +324,16 @@ This is an academic capstone project. For questions or collaboration:
 
 ## 📄 License
 
-This project is for academic purposes. Data is synthetic and does not represent real individuals.
+This project is licensed under the MIT License. All accompanying source code is open for modification and distribution under these terms. Data used is synthetic and does not represent real individuals.
+
+A copy of the full license will be provided in the separate LICENSE.md file.
+
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Chapin Hall at the University of Chicago
+- 
 
 ---
 
