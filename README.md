@@ -43,7 +43,7 @@ A crucial aspect of this design was the selection of **PostgreSQL** as the datab
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 child-welfare-capstone/
@@ -142,7 +142,7 @@ jupyter notebook src/analysis/eda_child_episodes.ipynb
 
 ---
 
-## 📊 Database Schema
+## Database Schema
 
 ### Core Tables
 - **children**: Demographic information (500 records)
@@ -165,7 +165,7 @@ See `docs/erd.md` for detailed schema documentation.
 
 ---
 
-## 📈 Key Metrics
+## Key Metrics
 
 ### Caseload Metrics
 - Total children in system
@@ -301,7 +301,7 @@ Tests include:
 
 ---
 
-## 📚 References
+## References
 
 1. Chapin Hall. (2023). *Child Welfare Data Guidelines*
 2. U.S. DHHS. (2023). *AFCARS Data Standards*
@@ -310,7 +310,7 @@ Tests include:
 
 ---
 
-## 🤝 Contributing & Collaboration
+## Contributing & Collaboration
 
 This project is submitted as an academic capstone. While contributions are not actively solicited post-submission, the repository is structured for transparency, maintainability, and future extension.   
 For academic inquiries, questions, or collaboration on potential extensions:
@@ -319,7 +319,7 @@ For academic inquiries, questions, or collaboration on potential extensions:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License. All accompanying source code is open for modification and distribution under these terms. Data used is synthetic and does not represent real individuals.
 
@@ -328,7 +328,7 @@ A copy of the full license will be provided in the separate LICENSE.md file.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - 
 
