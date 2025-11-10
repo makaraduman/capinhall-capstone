@@ -21,6 +21,9 @@ build/
 *.sqlite
 *.sql~
 
+# Documents
+docs/
+
 # Data files (if sensitive)
 
 
